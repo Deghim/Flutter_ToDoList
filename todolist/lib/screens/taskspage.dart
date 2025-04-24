@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/widgets/filterbar.dart';
+import 'package:todolist/widgets/task.dart';
 
 class Taskspage extends StatefulWidget {
   const Taskspage({super.key});
@@ -10,6 +11,9 @@ class Taskspage extends StatefulWidget {
 }
 
 class _TaskspageState extends State<Taskspage> {
+  // Todo: Modificar la lista para las tasks
+  final List<Task> tasks = [Task(), Task(), Task(), Task(), Task(), Task()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +35,18 @@ class _TaskspageState extends State<Taskspage> {
       ),
       body: SafeArea(
         child: Column(
-          children: [Filterbar(), Expanded(child: Text("Hola mama"))],
+          children: [
+            Filterbar(),
+            Expanded(
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  return Task();
+                },
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: BottomAppBar(
