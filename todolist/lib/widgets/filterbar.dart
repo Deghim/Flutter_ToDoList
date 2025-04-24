@@ -16,7 +16,6 @@ class _FilterbarState extends State<Filterbar> {
       child: Container(
         decoration: const BoxDecoration(border: Border(bottom: BorderSide())),
         width: double.infinity,
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

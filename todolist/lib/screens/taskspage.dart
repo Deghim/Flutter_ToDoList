@@ -12,9 +12,10 @@ class Taskspage extends StatefulWidget {
 class _TaskspageState extends State<Taskspage> {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
+    return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      navigationBar: CupertinoNavigationBar(
+      appBar: CupertinoNavigationBar(
+        backgroundColor: Theme.of(context).primaryColor,
         leading: CupertinoButton(
           child: Icon(CupertinoIcons.back, color: Theme.of(context).focusColor),
           onPressed: () => Navigator.pop(context),
@@ -27,13 +28,21 @@ class _TaskspageState extends State<Taskspage> {
           ),
         ),
       ),
-      child: SafeArea(
+      body: SafeArea(
         child: Column(
-          children: [
-            SizedBox(height: 10),
-            Filterbar(),
-            Expanded(child: Text("Hola mama")),
-          ],
+          children: [Filterbar(), Expanded(child: Text("Hola mama"))],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Center(
+          child: CupertinoButton(
+            child: Icon(
+              CupertinoIcons.add_circled,
+              color: Theme.of(context).focusColor,
+            ),
+            onPressed: () {},
+          ),
         ),
       ),
     );
