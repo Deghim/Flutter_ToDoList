@@ -1,8 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todolist/models/taskmodel.dart';
 
 class Task extends StatelessWidget {
-  const Task({super.key});
+  final Taskmodel taskData;
+  final Function onTog;
+  final VoidCallback onDelete;
+
+  const Task({
+    super.key,
+    required this.taskData,
+    required this.onTog,
+    required this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +23,19 @@ class Task extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(width: 10),
-            GestureDetector(
-              child: Icon(
-                CupertinoIcons.checkmark_alt_circle,
-                color: Theme.of(context).focusColor,
-                size: 24,
+            if (!taskData.completed) ...[
+              GestureDetector(
+                child: Icon(
+                  CupertinoIcons.checkmark_alt_circle,
+                  color: Theme.of(context).focusColor,
+                  size: 24,
+                ),
+                onTap: () {
+                  debugPrint("Se completo la tarea");
+                  onTog(true);
+                },
               ),
-              onTap: () {},
-            ),
+            ],
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
@@ -29,7 +44,7 @@ class Task extends StatelessWidget {
                   children: [
                     SizedBox(height: 5),
                     Text(
-                      "Task Title",
+                      "${taskData.title}",
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -37,7 +52,7 @@ class Task extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Task Description",
+                      "${taskData.description}.",
                       style: TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                     SizedBox(height: 4),
@@ -47,7 +62,7 @@ class Task extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: onDelete,
               child: Icon(
                 CupertinoIcons.xmark_circle,
                 color: Colors.grey,

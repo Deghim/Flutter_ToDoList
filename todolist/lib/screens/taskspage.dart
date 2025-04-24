@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todolist/models/taskmodel.dart';
 import 'package:todolist/widgets/filterbar.dart';
 import 'package:todolist/widgets/task.dart';
 import 'package:todolist/widgets/taskform.dart';
@@ -12,8 +16,75 @@ class Taskspage extends StatefulWidget {
 }
 
 class _TaskspageState extends State<Taskspage> {
+  final _prefsKey = 'tasks';
   // Todo: Modificar la lista para las tasks
-  final List<Task> tasks = [Task(), Task(), Task(), Task(), Task(), Task()];
+  List<Taskmodel> tasks = [];
+  // final List<Task> tasks = [Task(), Task(), Task(), Task(), Task(), Task()];
+
+  late String title = "";
+  late String description = "";
+  late bool completed = false;
+  late Map<String, Object> data = {};
+
+  @override
+  void initState() {
+    _loadData();
+    super.initState();
+  }
+
+  Future<void> _loadData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final info = prefs.getString(_prefsKey);
+    if (info != null && info.isNotEmpty) {
+      setState(() {
+        tasks = Taskmodel.decodeList(info);
+      });
+    }
+  }
+
+  Future<void> _saveTasks() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_prefsKey, Taskmodel.encodeList(tasks));
+  }
+
+  void addTask(String title, String description) {
+    setState(() {
+      tasks.add(Taskmodel(title: title, description: description));
+    });
+    _saveTasks();
+  }
+
+  void toggleCompleted(int index, bool newValue) {
+    setState(() {
+      tasks[index].completed = newValue;
+    });
+    _saveTasks();
+  }
+
+  void deleteTask(int index) {
+    setState(() {
+      tasks.removeAt(index);
+    });
+    _saveTasks();
+  }
+
+  void openNewTaskForm() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          height: 500,
+          width: MediaQuery.of(context).size.width,
+          child: Taskform(onSub: addTask),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +114,15 @@ class _TaskspageState extends State<Taskspage> {
                 physics: BouncingScrollPhysics(),
                 itemCount: tasks.length,
                 itemBuilder: (context, index) {
-                  return Task();
+                  if (!tasks[index].completed) {
+                    return Task(
+                      taskData: tasks[index],
+                      onTog: (val) => toggleCompleted(index, val),
+                      onDelete: () => deleteTask(index),
+                    );
+                  } else {
+                    return Container();
+                  }
                 },
               ),
             ),
@@ -59,28 +138,11 @@ class _TaskspageState extends State<Taskspage> {
               color: Theme.of(context).focusColor,
             ),
             onPressed: () {
-              _showBottom(context);
+              openNewTaskForm();
             },
           ),
         ),
       ),
     );
   }
-}
-
-Future<void> _showBottom(BuildContext context) {
-  return showModalBottomSheet(
-    context: context,
-    builder: (context) {
-      return Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        height: 500,
-        width: MediaQuery.of(context).size.width,
-        child: Taskform(),
-      );
-    },
-  );
 }

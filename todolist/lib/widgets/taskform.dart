@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Taskform extends StatelessWidget {
-  const Taskform({super.key});
+  final void Function(String title, String description) onSub;
+  const Taskform({super.key, required this.onSub});
 
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     final TextEditingController _taskTitle = TextEditingController();
     final TextEditingController _taskDescription = TextEditingController();
+
+    final bottom = MediaQuery.of(context).viewInsets.bottom;
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -41,7 +45,7 @@ class Taskform extends StatelessWidget {
               _buildTextField(
                 context: context,
                 controller: _taskDescription,
-                label: 'Recipe',
+                label: 'Description',
                 validator: (value) {
                   return (value == null || value.isEmpty)
                       ? "Invalid Input"
@@ -53,7 +57,9 @@ class Taskform extends StatelessWidget {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
+                    // * Aqui ocurre la magia :p
                     if (_formKey.currentState!.validate()) {
+                      onSub(_taskTitle.text, _taskDescription.text);
                       Navigator.pop(context);
                     }
                   },
@@ -64,7 +70,7 @@ class Taskform extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "Save Recipe",
+                    "Save Task",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -106,3 +112,13 @@ Widget _buildTextField({
     maxLines: maxLines,
   );
 }
+
+// void updateTask(String title, String description) async {
+//   final prefs = SharedPreferences.getInstance();
+//   await prefs.setString("taskTitle", title);
+//   await prefs.setString("taskDescription", description);
+//   await prefs.setBool("taskCompleted", false);
+
+//   debugPrint(title);
+//   debugPrint(description);
+// }
