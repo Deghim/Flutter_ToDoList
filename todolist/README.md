@@ -2,6 +2,9 @@
 
 A new Flutter project.
 
+<!-- ! Figma -->
+https://www.figma.com/design/EAuaCVc3whYQV7lpLZiFn1/Creeartelo-ToDo-List?node-id=0-1&p=f&t=mKdygktoAFzI59U2-0 
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
@@ -25,19 +28,20 @@ Desarrollar una aplicación móvil en Flutter que permita al usuario:
 
 Requisitos funcionales
     - Pantalla principal
-    - Debe mostrar la lista de tareas activas.
-    - Cada tarea debe tener: título, descripción, estado (completada o no).
+        - Debe mostrar la lista de tareas activas.
+        - Cada tarea debe tener: título, descripción, estado (completada o no).
     - Agregar tarea
-    - El usuario debe poder ingresar una nueva tarea desde un formulario.
+        - El usuario debe poder ingresar una nueva tarea desde un formulario.
     - Completar tarea
-    - El usuario debe poder marcar una tarea como completada desde la lista.
+        - El usuario debe poder marcar una tarea como completada desde la lista.
     - Eliminar tarea
-    - El usuario debe poder eliminar una tarea desde la lista.
+        - El usuario debe poder eliminar una tarea desde la lista.
+    
     - Filtrar tareas
-    - Debe existir una forma de ver:
-    - Solo tareas activas
-    - Solo tareas completadas
-    - Todas las tareas
+        - Debe existir una forma de ver:
+            - Solo tareas activas
+            - Solo tareas completadas
+            - Todas las tareas
 
 Persistencia local
     Puede usar almacenamiento local básico (por ejemplo shared_preferences) para guardar las tareas y que no se pierdan al cerrar la app.
