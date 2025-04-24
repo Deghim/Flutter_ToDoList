@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/widgets/filterbar.dart';
 import 'package:todolist/widgets/task.dart';
+import 'package:todolist/widgets/taskform.dart';
 
 class Taskspage extends StatefulWidget {
   const Taskspage({super.key});
@@ -57,10 +58,29 @@ class _TaskspageState extends State<Taskspage> {
               CupertinoIcons.add_circled,
               color: Theme.of(context).focusColor,
             ),
-            onPressed: () {},
+            onPressed: () {
+              _showBottom(context);
+            },
           ),
         ),
       ),
     );
   }
+}
+
+Future<void> _showBottom(BuildContext context) {
+  return showModalBottomSheet(
+    context: context,
+    builder: (context) {
+      return Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        height: 500,
+        width: MediaQuery.of(context).size.width,
+        child: Taskform(),
+      );
+    },
+  );
 }
