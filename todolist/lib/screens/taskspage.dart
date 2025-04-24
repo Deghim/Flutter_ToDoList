@@ -15,6 +15,7 @@ class _TaskspageState extends State<Taskspage> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: CupertinoNavigationBar(
+        border: Border(bottom: BorderSide(color: Colors.transparent)),
         backgroundColor: Theme.of(context).primaryColor,
         leading: CupertinoButton(
           child: Icon(CupertinoIcons.back, color: Theme.of(context).focusColor),
