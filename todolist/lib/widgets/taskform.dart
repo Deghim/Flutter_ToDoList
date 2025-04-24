@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Taskform extends StatelessWidget {
   final void Function(String title, String description) onSub;
@@ -7,18 +6,16 @@ class Taskform extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-    final TextEditingController _taskTitle = TextEditingController();
-    final TextEditingController _taskDescription = TextEditingController();
-
-    final bottom = MediaQuery.of(context).viewInsets.bottom;
+    final formKey = GlobalKey<FormState>();
+    final TextEditingController taskTitle = TextEditingController();
+    final TextEditingController taskDescription = TextEditingController();
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         child: Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,7 +30,7 @@ class Taskform extends StatelessWidget {
               SizedBox(height: 8),
               _buildTextField(
                 context: context,
-                controller: _taskTitle,
+                controller: taskTitle,
                 label: 'Task Title',
                 validator: (value) {
                   return (value == null || value.isEmpty)
@@ -44,7 +41,7 @@ class Taskform extends StatelessWidget {
               SizedBox(height: 4),
               _buildTextField(
                 context: context,
-                controller: _taskDescription,
+                controller: taskDescription,
                 label: 'Description',
                 validator: (value) {
                   return (value == null || value.isEmpty)
@@ -58,8 +55,8 @@ class Taskform extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     // * Aqui ocurre la magia :p
-                    if (_formKey.currentState!.validate()) {
-                      onSub(_taskTitle.text, _taskDescription.text);
+                    if (formKey.currentState!.validate()) {
+                      onSub(taskTitle.text, taskDescription.text);
                       Navigator.pop(context);
                     }
                   },
