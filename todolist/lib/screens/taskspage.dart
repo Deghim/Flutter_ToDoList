@@ -15,9 +15,8 @@ class Taskspage extends StatefulWidget {
 
 class _TaskspageState extends State<Taskspage> {
   final _prefsKey = 'tasks';
-  // Todo: Modificar la lista para las tasks
   List<Taskmodel> tasks = [];
-  // final List<Task> tasks = [Task(), Task(), Task(), Task(), Task(), Task()];
+  bool filter = true;
 
   late String title = "";
   late String description = "";
@@ -106,13 +105,19 @@ class _TaskspageState extends State<Taskspage> {
       body: SafeArea(
         child: Column(
           children: [
-            Filterbar(),
+            Filterbar(
+              filtered: (val) {
+                setState(() {
+                  filter = val;
+                });
+              },
+            ),
             Expanded(
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 itemCount: tasks.length,
                 itemBuilder: (context, index) {
-                  if (!tasks[index].completed) {
+                  if (tasks[index].completed != filter) {
                     return Task(
                       taskData: tasks[index],
                       onTog: (val) => toggleCompleted(index, val),
