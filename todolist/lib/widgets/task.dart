@@ -44,7 +44,7 @@ class Task extends StatelessWidget {
                   children: [
                     SizedBox(height: 5),
                     Text(
-                      "${taskData.title}",
+                      taskData.title,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
