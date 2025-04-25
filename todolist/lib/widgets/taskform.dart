@@ -43,12 +43,10 @@ class Taskform extends StatelessWidget {
                 context: context,
                 controller: taskDescription,
                 label: 'Description',
-                validator: (value) {
-                  return (value == null || value.isEmpty)
-                      ? "Invalid Input"
-                      : null;
-                },
                 maxLines: 4,
+                validator: (val) {
+                  return null;
+                },
               ),
               SizedBox(height: 8),
               Center(
@@ -109,13 +107,3 @@ Widget _buildTextField({
     maxLines: maxLines,
   );
 }
-
-// void updateTask(String title, String description) async {
-//   final prefs = SharedPreferences.getInstance();
-//   await prefs.setString("taskTitle", title);
-//   await prefs.setString("taskDescription", description);
-//   await prefs.setBool("taskCompleted", false);
-
-//   debugPrint(title);
-//   debugPrint(description);
-// }
