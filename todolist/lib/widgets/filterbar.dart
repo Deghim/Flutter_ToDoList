@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Filterbar extends StatefulWidget {
-  final Function(bool) filtered;
+  final Function(int) filtered;
   const Filterbar({super.key, required this.filtered});
 
   @override
@@ -10,9 +10,15 @@ class Filterbar extends StatefulWidget {
 }
 
 class _FilterbarState extends State<Filterbar> {
-  bool active = true;
-  String state = "Active";
-  dynamic filterIcon = Icons.loop;
+  // bool active = true;
+  int filterState = 0;
+  final List<String> state = ["In Progress", "Completed", "All Tasks"];
+  final List<IconData> icons = [
+    Icons.loop,
+    Icons.check_circle_outline_outlined,
+    Icons.all_out,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -27,23 +33,25 @@ class _FilterbarState extends State<Filterbar> {
               children: [
                 SizedBox(width: 10),
                 Text("Status: "),
-                Text(state, style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  state[filterState],
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             CupertinoButton(
-              child: Icon(filterIcon, color: Theme.of(context).focusColor),
+              child: Icon(
+                icons[filterState],
+                color: Theme.of(context).focusColor,
+              ),
               onPressed: () {
                 setState(() {
-                  if (active) {
-                    state = "Completed";
-                    filterIcon = Icons.check_box_outlined;
-                    active = !active;
+                  if (filterState == 2) {
+                    filterState = 0;
                   } else {
-                    state = "Active";
-                    filterIcon = Icons.loop;
-                    active = !active;
+                    filterState += 1;
                   }
-                  widget.filtered(active);
+                  widget.filtered(filterState);
                 });
               },
             ),

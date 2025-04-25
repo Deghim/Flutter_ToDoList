@@ -16,7 +16,8 @@ class Taskspage extends StatefulWidget {
 class _TaskspageState extends State<Taskspage> {
   final _prefsKey = 'tasks';
   List<Taskmodel> tasks = [];
-  bool filter = true;
+  // bool filter = true;
+  int filterState = 0;
 
   late String title = "";
   late String description = "";
@@ -108,26 +109,48 @@ class _TaskspageState extends State<Taskspage> {
             Filterbar(
               filtered: (val) {
                 setState(() {
-                  filter = val;
+                  filterState = val;
                 });
               },
             ),
             Expanded(
-              child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: tasks.length,
-                itemBuilder: (context, index) {
-                  if (tasks[index].completed != filter) {
-                    return Task(
-                      taskData: tasks[index],
-                      onTog: (val) => toggleCompleted(index, val),
-                      onDelete: () => deleteTask(index),
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
+              child:
+                  tasks.isNotEmpty
+                      ? ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: tasks.length,
+                        itemBuilder: (context, index) {
+                          if (filterState == 2) {
+                            return Task(
+                              taskData: tasks[index],
+                              onTog: (val) => toggleCompleted(index, val),
+                              onDelete: () => deleteTask(index),
+                            );
+                          } else if (filterState == 0) {
+                            return !tasks[index].completed
+                                ? Task(
+                                  taskData: tasks[index],
+                                  onTog: (val) => toggleCompleted(index, val),
+                                  onDelete: () => deleteTask(index),
+                                )
+                                : Container();
+                          } else if (filterState == 1) {
+                            return tasks[index].completed
+                                ? Task(
+                                  taskData: tasks[index],
+                                  onTog: (val) => toggleCompleted(index, val),
+                                  onDelete: () => deleteTask(index),
+                                )
+                                : Container();
+                          }
+                        },
+                      )
+                      : Center(
+                        child: Text(
+                          "Add a task!",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
             ),
           ],
         ),
