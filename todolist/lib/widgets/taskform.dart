@@ -67,7 +67,7 @@ class Taskform extends StatelessWidget {
                   child: Text(
                     "Save Task",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),

@@ -23,8 +23,8 @@ class _FilterbarState extends State<Filterbar> {
   Widget build(BuildContext context) {
     return Material(
       color: Theme.of(context).primaryColor,
-      child: Container(
-        decoration: const BoxDecoration(border: Border(bottom: BorderSide())),
+      child: SizedBox(
+        // decoration: const BoxDecoration(border: Border(bottom: BorderSide())),
         width: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -95,11 +95,15 @@ class _TaskspageState extends State<Taskspage> {
           child: Icon(CupertinoIcons.back, color: Theme.of(context).focusColor),
           onPressed: () => Navigator.pop(context),
         ),
-        middle: const Align(
+        middle: Align(
           alignment: Alignment.bottomLeft,
           child: Text(
             "Tasks",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Theme.of(context).focusColor,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

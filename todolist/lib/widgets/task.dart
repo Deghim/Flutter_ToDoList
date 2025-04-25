@@ -46,7 +46,7 @@ class Task extends StatelessWidget {
                     Text(
                       taskData.title,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Theme.of(context).focusColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                       ),

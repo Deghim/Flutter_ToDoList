@@ -9,7 +9,17 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "To Do List",
-      theme: ThemeData(primaryColor: Colors.white, focusColor: Colors.black),
+      theme: ThemeData(
+        primaryColor: Colors.white,
+        focusColor: Colors.black,
+        brightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        primaryColor: Colors.black,
+        focusColor: Colors.white,
+        brightness: Brightness.dark
+      ),
+      themeMode: ThemeMode.system,
       home: const Home(),
     );
   }
