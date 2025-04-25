@@ -1,81 +1,68 @@
 # todolist
 
-A new Flutter project.
-
 <!-- ! Figma -->
 https://www.figma.com/design/EAuaCVc3whYQV7lpLZiFn1/Creeartelo-ToDo-List?node-id=0-1&p=f&t=mKdygktoAFzI59U2-0 
 
 <!-- ! Evidencia Visual -->
 https://youtube.com/shorts/jz8O2OM4wcE?feature=share
 
-## Getting Started
+<!-- * Instrucciones para entrega -->
+Debe subir el proyecto completo a un repositorio de GitHub (o enviarlo en archivo .zip).
+Adjuntar un pequeño documento README.md que explique:
+A.- Cómo correr el proyecto
+    <!-- // Asumiendo el uso de vscode y configuracion estandar -->
+    Dentro de la base de codigo el proyecto se ejecuta de la siguiente manera:
+        1.- Se abre el proyecto destapando el archivo de main.dart
+        2.- Una vez con el archivo abierto se selecciona un dispositivo a emular en la parte inferior derecha
+            2.1.- Dentro de la lista de emuladores seleccione el telefono de su eleccion. En este caso se optó por un Iphone 16
+        3.- Esperamos que termine la conexion entre el IDE y el dispositivo emulado.
+        4.- Ubicamos la flecha apuntando hacia abajo "▼" en la parte superior derecha del editor, hacemos click y seleccionamos la opcion de ejecucion deseada.
+    5.- Una vez que el proyecto compile, disfrute de utilizar la aplicación
 
-This project is a starting point for a Flutter application.
+B.- Cómo estructuró el código
+    El codigo se ejecuto de la manera estandar de organizacion de aplicaciones, separando pantallas y widgets para su facil manteninimiento a futuro. El arbol de archivos quedó de la siugietne manera. 
+        lib/
+        ├── app/
+        │   ├── app.dart
+        │   └── home.dart
+        ├── models/
+        │   └── taskmodel.dart
+        ├── screens/
+        │   ├── info.dart
+        │   └── taskspage.dart
+        ├── widgets/
+        │   ├── filterbar.dart
+        │   ├── task.dart
+        │   └── taskform.dart
+        └── main.dart
 
-A few resources to get you started if this is your first Flutter project:
+C.- Qué partes considera que podría mejorar
+    Gestión de estado más robusta
+        Use setState en la página de tareas. Cuando la app crezca, podrías utilizar un Provider, Riverpod o Bloc.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+    Persistencia escalable
+        Esta aplicación es muy util para listas pequeñas, pero al momento de crecer sera cambiar la implementacion a una base de datos mas robusta.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    Más feedback:
+        Deshabilitar el botón “Guardar” hasta que el formulario sea válido.
 
+    Accesibilidad
+        Hacer la app para múltiples idiomas en lugar de strings hardcodeados.
 
-<!-- * Code challenge 04 Creeartelo “Gestor de Tareas Personales” -->
-Desarrollar una aplicación móvil en Flutter que permita al usuario:
-    - Agregar tareas
-    - Marcar tareas como completadas
-    - Eliminar tareas
-    - Ver una lista de tareas activas y completadas
+    Temas y estilos centralizados
+        Definir un archivo theme.dart con tu ColorScheme, tipografías y tamaños, en vez de repetir TextStyle en cada widget.
 
-Requisitos funcionales
-    - Pantalla principal
-        - Debe mostrar la lista de tareas activas.
-        - Cada tarea debe tener: título, descripción, estado (completada o no).
-    - Agregar tarea
-        - El usuario debe poder ingresar una nueva tarea desde un formulario.
-    - Completar tarea
-        - El usuario debe poder marcar una tarea como completada desde la lista.
-    - Eliminar tarea
-        - El usuario debe poder eliminar una tarea desde la lista.
-    
-    - Filtrar tareas
-        - Debe existir una forma de ver:
-            - Solo tareas activas
-            - Solo tareas completadas
-            - Todas las tareas
+D.- Qué aprendió durante la prueba
+    Persistencia sencilla con SharedPreferences
+    – Guardar y cargar listas de objetos convirtiéndolas a cadenas JSON.
+    – Saber cuándo y cómo invocar SharedPreferences.getInstance(), así como serializar con jsonEncode/jsonDecode.
 
-Persistencia local
-    Puede usar almacenamiento local básico (por ejemplo shared_preferences) para guardar las tareas y que no se pierdan al cerrar la app.
+    Gestión de estado local con setState
+    – Levantar el estado (por ejemplo el filtro activo/completado) desde un widget hijo hasta la página principal y pasarlo como parámetro y callback.
 
-Evaluación de estructura y principios
-    Estas son las pautas que debe seguir el prospecto:
-        - Organización del proyecto
-        - Debe crear una estructura de carpetas que considere adecuada. Por ejemplo:
-            /lib
-            /models
-            /screens
-            /widgets
-            /services
-            /utils
-<!-- (es un ejemplo de estructura de carpetas, puede ser diferente) -->
+    Temas, modo claro/oscuro y detección de estilo del sistema
+    – Definir theme, darkTheme y activar themeMode: ThemeMode.system para que la app siga la preferencia del usuario.
+    – Leer Theme.of(context).brightness o MediaQuery.of(context).platformBrightness para adaptar manualmente cuando se necesite.
 
-
-<!-- ! Se evaluará que las responsabilidades estén separadas (no todo en main.dart). -->
-    - Legibilidad del código
-    - Nombres claros en variables, funciones y clases.
-    - Comentarios breves cuando algo no sea evidente.
-    - Modularidad
-    - Se valora que cree widgets personalizados reutilizables.
-    - Que no se repita mucho código (uso de funciones auxiliares, por ejemplo).
-    - Lógica clara y correcta
-    - Debe funcionar correctamente la lógica de agregar, completar y eliminar.
-
-Instrucciones para entrega
-    Debe subir el proyecto completo a un repositorio de GitHub (o enviarlo en archivo .zip).
-    Adjuntar un pequeño documento README.md que explique:
-        - Cómo correr el proyecto
-        - Cómo estructuró el código
-        - Qué partes considera que podría mejorar
-        - Qué aprendió durante la prueba
+    Animaciones de texto
+    – Integrar paquetes como animated_text_kit para efectos de “máquina de escribir” con tipeado y borrado automático.
